@@ -130,7 +130,10 @@
   }
 
   .glass-overlay {
-    @apply absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20;
+    @apply absolute inset-0;
+    background: 
+      linear-gradient(to top, hsl(30 20% 8% / 0.85) 0%, hsl(30 20% 8% / 0.6) 40%, hsl(30 20% 8% / 0.4) 70%, hsl(30 20% 8% / 0.25) 100%),
+      radial-gradient(ellipse at center bottom, hsl(30 25% 15% / 0.3) 0%, transparent 60%);
   }
 
   .content-overlay {
