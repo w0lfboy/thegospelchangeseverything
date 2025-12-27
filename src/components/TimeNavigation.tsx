@@ -15,7 +15,7 @@ const timeOptions = [
 export function TimeNavigation({ activeTime, onTimeChange }: TimeNavigationProps) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-4">
-      <div className="mx-auto flex max-w-md items-center justify-around gap-2 rounded-2xl bg-black/30 p-2 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-sm items-center justify-around gap-1 rounded-2xl border border-border/50 bg-card/95 p-1.5 shadow-lg backdrop-blur-xl">
         {timeOptions.map(({ id, label, icon: Icon }) => {
           const isActive = activeTime === id;
           return (
@@ -23,20 +23,21 @@ export function TimeNavigation({ activeTime, onTimeChange }: TimeNavigationProps
               key={id}
               onClick={() => onTimeChange(id)}
               className={cn(
-                "flex flex-1 flex-col items-center gap-1 rounded-xl px-4 py-3 transition-all duration-300",
+                "flex flex-1 flex-col items-center gap-1 rounded-xl px-4 py-2.5 transition-all duration-300",
                 isActive 
-                  ? "bg-white/20 text-white shadow-lg" 
-                  : "text-white/60 hover:bg-white/10 hover:text-white/80"
+                  ? "bg-primary text-primary-foreground shadow-sm" 
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
               aria-label={`Switch to ${label} prayer`}
             >
               <Icon 
                 className={cn(
-                  "h-5 w-5 transition-transform duration-300",
+                  "h-4 w-4 transition-transform duration-300",
                   isActive && "scale-110"
                 )} 
+                strokeWidth={isActive ? 2 : 1.5}
               />
-              <span className="text-xs font-medium tracking-wide">{label}</span>
+              <span className="text-[11px] font-medium tracking-wide">{label}</span>
             </button>
           );
         })}

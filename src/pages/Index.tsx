@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PrayerCard } from "@/components/PrayerCard";
+import { PrayerSection } from "@/components/PrayerSection";
 import { TimeNavigation } from "@/components/TimeNavigation";
 import { getTodaysContent, getCurrentTimeOfDay, TimeOfDayContent } from "@/data/dailyContent";
 
@@ -28,6 +28,9 @@ const Index = () => {
     if (time === activeTime) return;
     
     setIsTransitioning(true);
+    // Scroll to top when changing times
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     setTimeout(() => {
       setActiveTime(time);
       setIsTransitioning(false);
@@ -37,25 +40,26 @@ const Index = () => {
   if (!content) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="animate-pulse-soft font-serif text-2xl text-muted-foreground">
-          Loading...
+        <div className="animate-breathe font-serif text-xl text-muted-foreground">
+          Preparing your prayer...
         </div>
       </div>
     );
   }
 
-  const currentReading = content[activeTime];
+  const currentPrayer = content[activeTime];
   const currentBackground = backgroundImages[activeTime];
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background">
+    <main className="min-h-screen bg-background">
       <div 
         className={`transition-opacity duration-300 ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
+        key={activeTime}
       >
-        <PrayerCard
-          reading={currentReading}
+        <PrayerSection
+          prayer={currentPrayer}
           timeOfDay={activeTime}
           backgroundImage={currentBackground}
         />
