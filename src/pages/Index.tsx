@@ -19,9 +19,11 @@ const Index = () => {
   );
   const [content, setContent] = useState<TimeOfDayContent | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [todayDate, setTodayDate] = useState('');
 
   useEffect(() => {
     setContent(getTodaysContent());
+    setTodayDate(new Date().toISOString().split('T')[0]);
   }, []);
 
   const handleTimeChange = (time: 'morning' | 'midday' | 'evening') => {
@@ -62,6 +64,7 @@ const Index = () => {
           prayer={currentPrayer}
           timeOfDay={activeTime}
           backgroundImage={currentBackground}
+          date={todayDate}
         />
       </div>
       
