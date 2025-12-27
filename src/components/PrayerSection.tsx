@@ -79,10 +79,11 @@ export function PrayerSection({ prayer, timeOfDay, backgroundImage, date }: Pray
       {/* Hero Section with Background */}
       <div className="relative h-[45vh] min-h-[280px] overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 scale-105 bg-cover bg-center bg-no-repeat blur-[2px]"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         />
         <div className="glass-overlay" />
+        <div className="grain-overlay" />
         
         {/* Safe area for notch/status bar */}
         <div className="safe-area-top" />
