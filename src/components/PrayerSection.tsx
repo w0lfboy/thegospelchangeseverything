@@ -2,7 +2,6 @@ import { DailyPrayer } from "@/data/dailyContent";
 import { PrayerActions } from "./PrayerActions";
 import { useShare } from "@/hooks/useShare";
 import { useBookmarks } from "@/hooks/useBookmarks";
-import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
 import { toast } from "@/hooks/use-toast";
 
 interface PrayerSectionProps {
@@ -21,7 +20,6 @@ const timeLabels = {
 export function PrayerSection({ prayer, timeOfDay, backgroundImage, date }: PrayerSectionProps) {
   const { sharePrayer } = useShare();
   const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
-  const { speak, stop, pause, resume, isPlaying, isPaused, isSupported } = useSpeechSynthesis();
 
   const bookmarked = isBookmarked(date, timeOfDay);
 
@@ -53,31 +51,10 @@ export function PrayerSection({ prayer, timeOfDay, backgroundImage, date }: Pray
     sharePrayer(prayer, timeOfDay);
   };
 
-  const handlePlay = () => {
-    const fullText = `
-      ${prayer.call}
-      
-      Scripture from ${prayer.scripture.reference}.
-      ${prayer.scripture.text}
-      
-      Reflection.
-      ${prayer.reflection}
-      
-      Prayer prompts.
-      ${prayer.prompts.join('. ')}
-      
-      Take a moment of silence to speak to God in your own words.
-      
-      Benediction.
-      ${prayer.benediction}
-    `;
-    speak(fullText);
-  };
-
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background */}
-      <div className="relative h-[45vh] min-h-[280px] overflow-hidden">
+      <div className="relative h-[35vh] min-h-[220px] overflow-hidden">
         <div 
           className="absolute inset-0 scale-105 bg-cover bg-center bg-no-repeat blur-[2px]"
           style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -88,12 +65,12 @@ export function PrayerSection({ prayer, timeOfDay, backgroundImage, date }: Pray
         {/* Safe area for notch/status bar */}
         <div className="safe-area-top" />
         
-        <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-6 pt-safe">
-          <span className="slide-up inline-block self-start rounded-full bg-white/15 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-white/90 backdrop-blur-sm">
+        <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-5 pt-safe">
+          <span className="slide-up inline-block self-start rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-white/90 backdrop-blur-sm">
             {timeLabels[timeOfDay]}
           </span>
           
-          <p className="slide-up delay-200 mt-3 font-serif text-base leading-relaxed text-white/95 drop-shadow-md sm:text-lg md:text-xl">
+          <p className="slide-up delay-200 mt-3 font-serif text-lg leading-relaxed text-white/95 drop-shadow-md sm:text-xl md:text-2xl">
             {prayer.call}
           </p>
         </div>
@@ -110,13 +87,6 @@ export function PrayerSection({ prayer, timeOfDay, backgroundImage, date }: Pray
               isBookmarked={bookmarked}
               onBookmark={handleBookmark}
               onShare={handleShare}
-              isPlaying={isPlaying}
-              isPaused={isPaused}
-              isAudioSupported={isSupported}
-              onPlay={handlePlay}
-              onPause={pause}
-              onResume={resume}
-              onStop={stop}
             />
           </div>
 
@@ -151,8 +121,8 @@ export function PrayerSection({ prayer, timeOfDay, backgroundImage, date }: Pray
             <ul className="mt-4 space-y-4">
               {prayer.prompts.map((prompt, index) => (
                 <li key={index} className="flex gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary/40" />
-                  <p className="font-sans text-[15px] leading-relaxed text-foreground/85 sm:text-base">
+                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary/40" />
+                  <p className="font-sans text-base leading-relaxed text-foreground/85 sm:text-lg">
                     {prompt}
                   </p>
                 </li>

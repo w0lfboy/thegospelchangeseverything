@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -49,9 +49,9 @@
     --evening-soft: 250 15% 90%;
     --evening-deep: 250 20% 15%;
 
-    /* Typography */
+    /* Typography - System fonts for optimal readability */
     --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-sans: 'Source Sans 3', system-ui, sans-serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
     /* Shadows - soft and subtle */
     --shadow-soft: 0 4px 24px -8px hsl(30 20% 20% / 0.1);
@@ -107,12 +107,12 @@
 @layer components {
   .scripture-text {
     font-family: var(--font-serif);
-    @apply text-xl md:text-2xl leading-relaxed font-medium;
+    @apply text-2xl md:text-3xl leading-relaxed font-medium;
   }
 
   .prayer-text {
     font-family: var(--font-serif);
-    @apply text-lg md:text-xl leading-relaxed;
+    @apply text-xl md:text-2xl leading-relaxed;
   }
 
   .section-label {
@@ -121,12 +121,12 @@
 
   .reflection-text {
     font-family: var(--font-sans);
-    @apply text-base leading-relaxed text-foreground/80;
+    @apply text-lg leading-relaxed text-foreground/80;
   }
 
   .benediction-text {
     font-family: var(--font-serif);
-    @apply text-lg italic text-foreground/90;
+    @apply text-xl italic text-foreground/90;
   }
 
   .glass-overlay {
